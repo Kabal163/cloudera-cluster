@@ -1,0 +1,37 @@
+UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
+DROP DATABASE template1;
+CREATE DATABASE template1 WITH TEMPLATE = template0 ENCODING = 'UTF8';
+UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template1';
+\c template1
+VACUUM FREEZE;
+\c postgres
+
+CREATE ROLE scm LOGIN PASSWORD 'scm';
+CREATE DATABASE scm OWNER scm ENCODING 'UTF8';
+
+CREATE ROLE amon LOGIN PASSWORD 'amon';
+CREATE DATABASE amon OWNER amon ENCODING 'UTF8';
+
+CREATE ROLE rman LOGIN PASSWORD 'rman';
+CREATE DATABASE rman OWNER rman ENCODING 'UTF8';
+
+CREATE ROLE hue LOGIN PASSWORD 'hue';
+CREATE DATABASE hue OWNER hue ENCODING 'UTF8';
+
+CREATE ROLE hive LOGIN PASSWORD 'hive';
+CREATE DATABASE metastore OWNER hive ENCODING 'UTF8';
+
+CREATE ROLE sentry LOGIN PASSWORD 'sentry';
+CREATE DATABASE sentry OWNER sentry ENCODING 'UTF8';
+
+CREATE ROLE nav LOGIN PASSWORD 'nav';
+CREATE DATABASE nav OWNER nav ENCODING 'UTF8';
+
+CREATE ROLE navms LOGIN PASSWORD 'navms';
+CREATE DATABASE navms OWNER navms ENCODING 'UTF8';
+
+CREATE ROLE oozie LOGIN PASSWORD 'oozie';
+CREATE DATABASE oozie OWNER oozie ENCODING 'UTF8';
+
+ALTER DATABASE metastore SET standard_conforming_strings=off;
+ALTER DATABASE oozie SET standard_conforming_strings=off;
